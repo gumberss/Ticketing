@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticketing-auth
+  template: 
+    metadata:
+      labels:
+        app: ticketing-auth
+    spec:
+      containers:
+        - name: ticketing-auth
+          image: gumberss/ticketing-auth
+    
