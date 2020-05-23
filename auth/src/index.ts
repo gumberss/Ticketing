@@ -15,10 +15,12 @@ import { NotFoundError } from './errors/not-found-error'
 const app = express()
 app.set('trust proxy', true) // nginx proxy the connection
 app.use(json())
-app.use(cookieSession({
-	signed: false,
-	secure: true //https connection
-}))
+app.use(
+	cookieSession({
+		signed: false,
+		secure: true, //https connection
+	})
+)
 app.use(currentUserRouter)
 app.use(signinRouter)
 app.use(signoutRouter)
@@ -31,18 +33,21 @@ app.all('*', async (req, res) => {
 app.use(errorHandler)
 
 const start = async () => {
+	if (!process.env.JWT_KEY) {
+		throw new Error('JWT_KEY must be defined')
+	}
+
 	try {
 		await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
 			useCreateIndex: true,
-    })
-    console.log('Connected to database')
+		})
+		console.log('Connected to database')
 	} catch (err) {
 		console.log(err)
-  }
-  app.listen(3000, () => console.log('Listening on port 3000!!!'))  
+	}
+	app.listen(3000, () => console.log('Listening on port 3000!!!'))
 }
 
 start()
-
