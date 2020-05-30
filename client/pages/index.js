@@ -6,7 +6,7 @@ const LandingPage = ({ currentUser }) => {
 }
 
 // This method from Next.js allow us to fetch some data during the server side process
-LandingPage.getInitialProps = async () => {
+LandingPage.getInitialProps = async ({ req }) => {
 	//on server
 	if (typeof window === 'undefined') {
 		const { data } = await axios.get(
@@ -14,7 +14,7 @@ LandingPage.getInitialProps = async () => {
 			//http://KUBERNET-NAMESPACE.KUBERNET-SERVICE.svc.cluster.local/PATH
 			{
 				headers: {
-					Host: 'ticketing.dev',
+					...req.headers
 				},
 			}
 		)
