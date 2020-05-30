@@ -1,10 +1,11 @@
-import SignForm from '../../components/sign-form'
+import { useState } from 'react'
 import Router from 'next/router'
 import useRequest from '../../hooks/use-request'
+import SignForm from '../../components/sign-form'
 
 export default () => {
 	const { errors, doRequest } = useRequest({
-		url: '/api/users/signup',
+		url: '/api/users/signin',
 		method: 'post',
 		onSuccess: () => Router.push('/'),
 	})
@@ -20,7 +21,7 @@ export default () => {
 
 	return (
 		<>
-			<SignForm errors={errors} actionName="Sign up" onSubmit={onSubmit} />
+			<SignForm errors={errors} actionName="Sign in" onSubmit={onSubmit} />
 			{errors}
 		</>
 	)

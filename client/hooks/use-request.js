@@ -1,20 +1,20 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-export default ({ url, method, body, onSuccess }) => {
+export default ({ url, method, onSuccess }) => {
 	const [errors, setErrors] = useState(null)
 
-	const doRequest = async () => {
-    try{
-      const response = await axios[method](url, body)
+	const doRequest = async ({ body }) => {
+		try {
+			const response = await axios[method](url, body)
 
-      setErrors(null)
+			setErrors(null)
 
-      onSuccess && onSuccess(response.data)
+			onSuccess && onSuccess(response.data)
 
-      return response.data
-    }catch(err){
-      setErrors((
+			return response.data
+		} catch (err) {
+			setErrors(
 				<div className="alert alert-danger">
 					<h4>Oops...</h4>
 					<ul className="my-0">
@@ -23,9 +23,9 @@ export default ({ url, method, body, onSuccess }) => {
 						))}
 					</ul>
 				</div>
-			))
-    }
-  }
+			)
+		}
+	}
 
 	return { errors, doRequest }
 }
