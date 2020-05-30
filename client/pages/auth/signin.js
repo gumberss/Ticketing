@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Router from 'next/router'
 import useRequest from '../../hooks/use-request'
 import SignForm from '../../components/sign-form'
