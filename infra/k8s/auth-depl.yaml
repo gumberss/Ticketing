@@ -16,6 +16,8 @@ spec:
         - name: ticketing-auth
           image: gumberss/ticketing-auth
           env: 
+            - name: MONGO_URI
+              value: 'mongodb://auth-mongo-srv:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
