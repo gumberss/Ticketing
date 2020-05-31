@@ -14,10 +14,13 @@ spec:
     spec:
       containers:
         - name: ticketing-tickets
-          image: gumebrss/ticketing-tickets
+          image: gumberss/ticketing-tickets
           env:
-            - name: jwt_secret
-              key: JWT_KEY
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +30,7 @@ spec:
   selector:
     app: ticketing-tickets
   ports:
-    - name: tickets
+    - name: tickets-port
       protocol: TCP
       port: 3000
       targetPort: 3000

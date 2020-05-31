@@ -27,7 +27,7 @@ build:
             dest: .
     - image: gumberss/ticketing-tickets
       context: tickets
-      docler:
+      docker:
         dockerfile: Dockerfile
       sync:
         manual:
