@@ -2,11 +2,12 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import request from 'supertest'
 import { app } from '../app'
+import jwt from 'jsonwebtoken'
 
 declare global {
 	namespace NodeJS {
 		interface Global {
-			signup(): Promise<string[]>
+			signup(): string[]
 		}
 	}
 }
@@ -40,21 +41,21 @@ afterAll(async () => {
 })
 
 // probably it is not the best way I think the best way is saparate
-// this code in another file and import it in the test files that 
+// this code in another file and import it in the test files that
 //require it, but I'm just making a test
-global.signup = async () => {
-	const email = 'test@test.com'
-	const password = 'password'
+global.signup = () => {
+	const payload = {
+		id: '123',
+		email: 'test@test.com',
+	}
 
-	const response = await request(app)
-		.post('/api/users/signup')
-		.send({
-			email,
-			password,
-		})
-		.expect(201)
+	const token = jwt.sign(payload, process.env.JWT_KEY!)
 
-	const cookie = response.get('Set-Cookie')
+	const session = { jwt: token }
 
-	return cookie
+	const sessionJSON = JSON.stringify(session)
+
+	const base64 = Buffer.from(sessionJSON).toString('base64')
+
+	return [`express:sess=${base64}`]
 }
