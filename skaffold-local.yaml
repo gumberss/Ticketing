@@ -3,12 +3,12 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/cloud/*.yaml
+      - ./infra/k8s/local/*.yaml
 build:
-  googleCloudBuild:
-    projectId: ticketing-dev-277723
+  local:
+    push: false
   artifacts:
-    - image: us.gcr.io/ticketing-dev-277723/auth
+    - image: gumberss/ticketing-auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: us.gcr.io/ticketing-dev-277723/client
+    - image: gumberss/client
       context: client
       docker:
         dockerfile: Dockerfile
@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*js'
             dest: .
-    - image: us.gcr.io/ticketing-dev-277723/ticketing-tickets
+    - image: gumberss/ticketing-tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
@@ -32,3 +32,4 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+

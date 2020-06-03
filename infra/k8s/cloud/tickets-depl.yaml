@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticketing-tickets
+  template:
+    metadata: 
+      labels:
+        app: ticketing-tickets
+    spec:
+      containers:
+        - name: ticketing-tickets
+          image: us.gcr.io/ticketing-dev-277723/ticketing-tickets
+          env:
+            - name: MONGO_URI
+              # It is only accessed inside of the cluster, 
+              # so It won't be a problem to commit it 
+              value: 'mongodb://tickets-mongo-srv:27017/tickets' 
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-srv
+spec:
+  selector:
+    app: ticketing-tickets
+  ports:
+    - name: tickets-port
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

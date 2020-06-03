@@ -13,7 +13,7 @@ spec:
         app: ticketing-tickets-mongo
     spec:
       containers:
-        - name: tickets-mongo
+        - name: mongo
           image: mongo
 ---
   apiVersion: v1
