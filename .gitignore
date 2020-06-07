@@ -1,2 +1,4 @@
 **/node_modules
-common/build
+
+user-common/
+nats-common/
