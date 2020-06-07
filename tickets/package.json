@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev src/index.ts",
-    "test": "jest --watchAll --no-cache"
+    "test": "jest --watchAll --no-cache",
+    "update": "npm update"
   },
   "jest": {
     "preset": "ts-jest",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@gtickets/common": "^1.0.5",
+    "@gtickets/nats-common": "^1.0.3",
     "@types/cookie-session": "^2.0.39",
     "@types/express": "^4.17.6",
     "@types/jsonwebtoken": "^8.5.0",
