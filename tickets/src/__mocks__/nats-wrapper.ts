@@ -1,5 +1,7 @@
 export const natsWrapper = {
-  publish() {
-    
-  }
+	client: {
+		publish: (subject: string, data: string, callback: () => void) => {
+			callback()
+		},
+	},
 }
