@@ -12,6 +12,8 @@ declare global {
 
 let mongo: any
 
+jest.mock('../nats-wrapper')
+
 beforeAll(async () => {
 	process.env.JWT_KEY = 'lalapo'
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
