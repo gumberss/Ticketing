@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import { requireAuth, validateRequest } from '@gtickets/common'
 import { body } from 'express-validator'
 import { Ticket } from '../models/ticket'
+import { TicketCreatedPublisher } from '../events/publishers/ticket-created-publisher'
 
 const router = express.Router()
 
@@ -26,6 +27,7 @@ router.post(
 		})
 
 		await ticket.save()
+
 
 		res.status(201).send(ticket)
 	}
