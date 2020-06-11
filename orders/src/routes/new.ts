@@ -1,9 +1,10 @@
 import mongoose from 'mongoose'
 import express, { Request, Response } from 'express'
-import { requireAuth, validateRequest, NotFoundError } from '@gtickets/common'
+import { requireAuth, validateRequest, NotFoundError, BadRequestError } from '@gtickets/common'
 import { body } from 'express-validator'
 import { Order } from '../models/order'
 import { Ticket } from '../models/ticket'
+import { OrderStatus } from '@gtickets/nats-common'
 
 const router = express.Router()
 
@@ -31,12 +32,27 @@ router.post(
 	],
 	validateRequest,
 	async (req: Request, res: Response) => {
-    const { ticketId } = req.body
-    
-    const ticket = await Ticket.findById(ticketId)
+		const { ticketId } = req.body
 
-    if(!ticket){
-      throw new NotFoundError()
+		const ticket = await Ticket.findById(ticketId)
+
+		if (!ticket) {
+			throw new NotFoundError()
+		}
+
+		const existingOrder = await Order.findOne({
+			ticket: ticket,
+			status: {
+				$in: [
+					OrderStatus.Created,
+					OrderStatus.AwaitingPatment,
+					OrderStatus.Complete,
+				],
+			},
+		})
+
+    if(existingOrder){
+      throw new BadRequestError('Ticket is already reserved')
     }
 
 		res.send({})
