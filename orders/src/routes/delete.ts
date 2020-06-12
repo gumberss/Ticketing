@@ -28,7 +28,7 @@ router.delete(
 			throw new NotAuthorizedError()
 		}
 
-		order.status = OrderStatus.Cancelled
+		order.set({ status: OrderStatus.Cancelled })
 
 		await order.save()
 
