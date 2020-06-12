@@ -73,3 +73,5 @@ it('Reserves a ticket that have an order cancelled', async () => {
 		.send({ ticketId: ticket.id })
 		.expect(201)
 })
+
+it.todo('Emits an order created event')
