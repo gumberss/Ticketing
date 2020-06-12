@@ -43,7 +43,7 @@ ticketSchema.statics.build = (attrs: TicketsAttrs) => {
 }
 
 ticketSchema.methods.isReserved = async function () {
-	const existingOrder = Order.findOne({
+	const existingOrder = await Order.findOne({
 		ticket: this,
 		status: {
 			$in: [
@@ -53,7 +53,6 @@ ticketSchema.methods.isReserved = async function () {
 			],
 		},
   })
-  
   return !!existingOrder
 }
 
