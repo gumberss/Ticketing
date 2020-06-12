@@ -6,14 +6,14 @@ interface OrderAttrs {
 	userId: string
 	status: OrderStatus
 	expiresAt: Date
-	ticker: TicketDoc
+	ticket: TicketDoc
 }
 
 interface OrderDoc extends mongoose.Document {
 	userId: string
 	status: OrderStatus
 	expiresAt: Date
-	ticker: TicketDoc
+	ticket: TicketDoc
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
