@@ -63,6 +63,7 @@ router.post(
 			status: OrderStatus.Created,
 			expiresAt: expiration,
 			ticket: ticket,
+			
 		})
 
 		await order.save()
@@ -76,6 +77,7 @@ router.post(
 				id: ticket.id,
 				price: ticket.price,
 			},
+			version: order.version
 		})
 
 		res.status(201).send(order)
