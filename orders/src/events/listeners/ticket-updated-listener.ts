@@ -22,7 +22,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
 
 		ticket.set({ title, price })
 
-		ticket.save()
+		await ticket.save()
 
 		msg.ack()
 	}
