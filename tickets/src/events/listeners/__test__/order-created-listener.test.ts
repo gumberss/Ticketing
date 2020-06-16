@@ -46,9 +46,26 @@ it('Sets the userId of the ticket', async () => {
 })
 
 it('acks the message', async () => {
-  const { listener, data, msg } = await setup()
+	const { listener, data, msg } = await setup()
 
 	await listener.onMessage(data, msg)
 
-  expect(msg.ack).toHaveBeenCalled()
+	expect(msg.ack).toHaveBeenCalled()
+})
+
+it('publishes a ticket updated event', async () => {
+	const { listener, ticket, data, msg } = await setup()
+
+	await listener.onMessage(data, msg)
+
+	expect(natsWrapper.client.publish).toHaveBeenCalled()
+
+	const mockPublish = natsWrapper.client.publish as jest.Mock
+
+	const callParameters = mockPublish.mock.calls[0]
+
+	const ticketUpdatedData = (JSON.parse(callParameters[1]) as OrderCreatedEvent['data'])
+
+	expect(ticket.id).toEqual(ticketUpdatedData.id)
+	expect(data.version + 1).toEqual(ticketUpdatedData.version)
 })
