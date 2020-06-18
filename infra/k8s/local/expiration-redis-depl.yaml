@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: expiration-redis-srvass
+  name: expiration-redis-srv
 spec:
   selector:
     app: ticketing-expiration-redis
