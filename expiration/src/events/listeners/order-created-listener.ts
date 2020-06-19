@@ -2,7 +2,6 @@ import {
 	Listener,
 	OrderCreatedEvent,
 	Subjects,
-	OrderStatus,
 } from '@gtickets/nats-common'
 import { Message } from 'node-nats-streaming'
 import { queueGroupName } from './queue-group-name'
@@ -12,10 +11,19 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 	readonly subject = Subjects.OrderCreated
 	queueGroupName = queueGroupName
 	async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
-		await expirationQueue.add({
-			orderId: data.id,
-    })
-    
-    msg.ack()
+		const delay = new Date(data.expiredAt).getTime() - new Date().getTime()
+
+		console.log('Waiting the many miliseconds to process the job: ', delay)
+
+		await expirationQueue.add(
+			{
+				orderId: data.id,
+			},
+			{
+				delay,
+			}
+		)
+
+		msg.ack()
 	}
 }
