@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ticketing-expiration-depl
+  name: expiration-depl
 spec:
   replicas: 1
   selector:
-    matchLabel:
+    matchLabels:
       app: ticketing-expiration
   template:
     metadata:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ticketing-expiration
-          image: gumberss/tiketing-expiration
+          image: gumberss/ticketing-expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

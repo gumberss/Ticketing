@@ -41,7 +41,7 @@ router.post(
 			},
 			process.env.JWT_KEY!
 		)
-
+//@ts-ignore
 		req.session = {
 			...req.session,
 			jwt: userJwt,

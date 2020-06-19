@@ -11,7 +11,7 @@ spec:
       http:
         paths:
           - path: /api/users/?(.*)
-            backend: 
+            backend:
               serviceName: auth-srv
               servicePort: 3000
           - path: /api/tickets/?(.*)
