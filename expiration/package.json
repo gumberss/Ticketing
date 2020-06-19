@@ -20,7 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@gtickets/common": "^1.0.5",
-    "@gtickets/nats-common": "^1.0.11",
+    "@gtickets/nats-common": "^1.0.12",
     "@types/bull": "^3.14.0",
     "bull": "^3.14.0",
     "node-nats-streaming": "^0.3.2",
