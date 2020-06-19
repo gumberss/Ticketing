@@ -3,6 +3,7 @@ import { Message } from 'node-nats-streaming'
 import { natsWrapper } from '../../../nats-wrapper'
 import {
 	Listener,
+	ExpirationCompleteEvent,
 	ExpirationCompleteEventData,
 	OrderStatus,
 } from '@gtickets/nats-common'
@@ -29,7 +30,7 @@ const setup = async () => {
 	await order.save()
 
 	const data: ExpirationCompleteEventData = {
-		orderId: mongoose.Types.ObjectId().toHexString(),
+		orderId: order.id,
 	}
 
 	// @ts-ignore
@@ -37,5 +38,37 @@ const setup = async () => {
 		ack: jest.fn(),
 	}
 
-	return { listener, data, msg }
+	return { listener, order, ticket, data, msg }
 }
+
+it('updates the order status to cancelled', async () => {
+	const { listener, order, data, msg } = await setup()
+
+	await listener.onMessage(data, msg)
+
+	const updatedOrder = await Order.findById(order.id)
+
+	expect(updatedOrder!.status).toEqual(OrderStatus.Cancelled)
+})
+
+it('emit an OrderCancelled event', async () => {
+	const { listener, order, data, msg } = await setup()
+
+	await listener.onMessage(data, msg)
+
+	expect(natsWrapper.client.publish).toHaveBeenCalled()
+
+	const publishMocked = natsWrapper.client.publish as jest.Mock
+	const eventDataString = publishMocked.mock.calls[0][1]
+  const eventData = JSON.parse(eventDataString)
+  
+	expect(eventData.id).toEqual(order.id)
+})
+
+it('ack the message', async () => {
+	const { listener, data, msg } = await setup()
+
+	await listener.onMessage(data, msg)
+
+	expect(msg.ack).toHaveBeenCalled()
+})
