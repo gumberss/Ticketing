@@ -11,7 +11,7 @@ import { Order } from '../models/order'
 import { Ticket } from '../models/ticket'
 import { OrderStatus } from '@gtickets/nats-common'
 import { natsWrapper } from '../nats-wrapper'
-import { OrderCreatedPublisher } from '../events/publishers/orcer-cancelled-publisher'
+import { OrderCreatedPublisher } from '../events/publishers/order-cancelled-publisher'
 
 const router = express.Router()
 
