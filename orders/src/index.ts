@@ -51,6 +51,7 @@ const start = async () => {
 			useUnifiedTopology: true,
 			useCreateIndex: true,
 		})
+		
 		console.log('Connected to database')
 	} catch (err) {
 		console.log(err)
