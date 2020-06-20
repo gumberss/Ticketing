@@ -11,7 +11,7 @@ import { Order } from '../models/order'
 import { Ticket } from '../models/ticket'
 import { OrderStatus } from '@gtickets/nats-common'
 import { natsWrapper } from '../nats-wrapper'
-import { OrderCreatedPublisher } from '../events/publishers/order-cancelled-publisher'
+import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher'
 
 const router = express.Router()
 
@@ -63,9 +63,7 @@ router.post(
 			status: OrderStatus.Created,
 			expiresAt: expiration,
 			ticket: ticket,
-			
 		})
-
 		await order.save()
 
 		new OrderCreatedPublisher(natsWrapper.client).publish({
@@ -77,7 +75,7 @@ router.post(
 				id: ticket.id,
 				price: ticket.price,
 			},
-			version: order.version
+			version: order.version,
 		})
 
 		res.status(201).send(order)

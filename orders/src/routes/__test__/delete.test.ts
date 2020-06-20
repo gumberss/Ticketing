@@ -7,7 +7,7 @@ import mongoose from 'mongoose'
 
 it('Marks an order as cancelled', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})
@@ -34,7 +34,7 @@ it('Marks an order as cancelled', async () => {
 
 it('Returns an error if one user tries to delete another users order', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})
@@ -57,7 +57,7 @@ it('Returns an error if one user tries to delete another users order', async () 
 
 it('Emits an order cancelled event', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})

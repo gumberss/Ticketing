@@ -42,7 +42,7 @@ it('Returns an error if the ticket is already reserved', async () => {
 
 it('Reserves a ticket that does not have an order', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})
@@ -57,7 +57,7 @@ it('Reserves a ticket that does not have an order', async () => {
 
 it('Reserves a ticket that have an order cancelled', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})
@@ -81,7 +81,7 @@ it('Reserves a ticket that have an order cancelled', async () => {
 
 it('Emits an order created event', async () => {
 	const ticket = Ticket.build({
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: mongoose.Types.ObjectId().toHexString(),
 		title: 'Concert',
 		price: 100,
 	})

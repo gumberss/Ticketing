@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express'
 import { requireAuth, NotFoundError, NotAuthorizedError } from '@gtickets/common'
 import { Order, OrderStatus } from '../models/order'
-import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher'
 import { natsWrapper } from '../nats-wrapper'
+import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher'
 
 const router = express.Router()
 
@@ -32,7 +32,7 @@ router.delete(
 
 		await order.save()
 
-		new OrderCreatedPublisher(natsWrapper.client).publish({
+		new OrderCancelledPublisher(natsWrapper.client).publish({
 			id: order.id,
 			ticket: {
 				id: order.ticket.id,
