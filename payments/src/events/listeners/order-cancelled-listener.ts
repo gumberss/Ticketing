@@ -8,7 +8,7 @@ import { queueGroupName } from './queue-group-name'
 import { Message } from 'node-nats-streaming'
 import { Order } from '../../models/orders'
 
-export class OrderCreatedListener extends Listener<OrderCancelledEvent> {
+export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
 	queueGroupName: string = queueGroupName
 	readonly subject = Subjects.OrderCancelled
 
