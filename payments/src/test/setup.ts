@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 declare global {
 	namespace NodeJS {
 		interface Global {
-			signup(): string[]
+			signup(id?: string): string[]
 		}
 	}
 }
@@ -45,9 +45,9 @@ afterAll(async () => {
 // probably it is not the best way I think the best way is saparate
 // this code in another file and import it in the test files that
 //require it, but I'm just making a test
-global.signup = () => {
+global.signup = (id?: string) => {
 	const payload = {
-		id: new mongoose.Types.ObjectId().toHexString(),
+		id: id || new mongoose.Types.ObjectId().toHexString(),
 		email: 'test@test.com',
 	}
 
