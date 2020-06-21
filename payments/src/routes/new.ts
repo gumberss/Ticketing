@@ -11,6 +11,7 @@ import {
 import { Order } from '../models/orders'
 import { OrderStatus } from '@gtickets/nats-common'
 import { stripe } from '../stripe'
+import { Payment } from '../models/payment'
 
 const router = express.Router()
 
@@ -36,11 +37,18 @@ router.post(
 			throw new BadRequestError('Cannot pay for an cancelled order')
 		}
 		
-		await stripe.charges.create({
+		const charge = await stripe.charges.create({
 			currency: 'usd',
 			amount: order.price * 100, //cents
 			source: token
 		})
+
+		const payment = Payment.build({
+			orderId,
+			stripeId: charge.id
+		})
+
+		payment.save()
 
 		res.status(201).send({ success: true })
 	}
