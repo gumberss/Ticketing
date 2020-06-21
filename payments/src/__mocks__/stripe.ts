@@ -1,7 +1,7 @@
 export const stripe = {
-  cjarges: {
+  charges: {
     create: jest.fn()
     // return a promise
-    .mockResolvedValue({})
+    .mockResolvedValue({id: '123'})
   }
 }

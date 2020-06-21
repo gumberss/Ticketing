@@ -48,7 +48,7 @@ router.post(
 			stripeId: charge.id
 		})
 
-		payment.save()
+		await payment.save()
 
 		res.status(201).send({ success: true })
 	}
