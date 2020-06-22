@@ -11,11 +11,9 @@ export default () => {
 
 	const onSubmit = ({ email, password }) => {
 		doRequest({
-			body: {
 				email,
 				password,
-			},
-		})
+			})
 	}
 
 	return (
