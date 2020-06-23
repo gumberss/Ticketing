@@ -16,11 +16,11 @@ spec:
         - name: client
           image: gumberss/client
           env:
-            - name: STRIPE_KEY
+            - name: STRIPE_PUBLIC_KEY
               valueFrom:
                 secretKeyRef:
-                  name: stripe-secret
-                  key: STRIPE_KEY
+                  name: stripe-public-secret
+                  key: STRIPE_PUBLIC_KEY
 ---
 
 apiVersion: v1
