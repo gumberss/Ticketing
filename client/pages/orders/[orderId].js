@@ -47,7 +47,7 @@ const OrderShow = ({ order, currentUser }) => {
 						token: id,
 					})
 				}
-				stripeKey={process.env.STRIPE_PUBLIC_KEY}
+				stripeKey="pk_test_51GwV0pCpSWfIq0dFJiyyHGgUaXyMwSUi8dTPOwYQaNsP3eRQWAqiEXDpAbiZVqRP925p6mP2gpCeIJ5X8hqQffJq00yXBtGzX4"
 				amount={order.ticket.price * 100}
 				email={currentUser.email}
 			/>

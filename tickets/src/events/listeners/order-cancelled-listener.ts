@@ -10,8 +10,8 @@ import { queueGroupName } from './queue-group-name'
 import { Ticket } from '../../models/ticket'
 import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher'
 
-export class OrderCancelledListener extends Listener<OrderCreatedEvent> {
-	readonly subject = Subjects.OrderCreated
+export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
+	readonly subject = Subjects.OrderCancelled
 	queueGroupName: string = queueGroupName
 
 	async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
