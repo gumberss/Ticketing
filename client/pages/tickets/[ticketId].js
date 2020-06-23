@@ -5,7 +5,7 @@ const TicketShow = ({ ticket }) => {
 	const { doRequest, errors } = useRequest({
 		url: '/api/orders',
 		method: 'post',
-		onSuccess: order => Router.push(`/orders/${order.id}`),
+    onSuccess: order => Router.push('/orders/[orderId]', `/orders/${order.id}`)
 	})
 
 	const onPurchase = () => {
