@@ -1,9 +1,7 @@
 import {
 	Listener,
 	OrderCancelledEvent,
-	OrderCreatedEvent,
 	Subjects,
-	OrderStatus,
 } from '@gtickets/nats-common'
 import { Message } from 'node-nats-streaming'
 import { queueGroupName } from './queue-group-name'
