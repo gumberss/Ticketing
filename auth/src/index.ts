@@ -19,7 +19,7 @@ console.log('Starting up...')
 			useCreateIndex: true,
 		})
 		
-		console.log('Connected to database')
+		console.log('Connected to database!')
 	} catch (err) {
 		console.log(err)
 	}
