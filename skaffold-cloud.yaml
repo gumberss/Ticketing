@@ -3,7 +3,9 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/cloud/*.yaml
+      - ./infra/k8s/google-cloud/*.yaml
+      - ./infra/k8s-dev/default/*.yaml
+      - ./infra/k8s-dev/google-cloud/*.yaml
 build:
   googleCloudBuild:
     projectId: ticketing-dev-277723
