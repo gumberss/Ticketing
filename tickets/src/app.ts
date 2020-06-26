@@ -15,7 +15,8 @@ app.use(json())
 app.use(
 	cookieSession({
 		signed: false,
-		secure: process.env.NODE_ENV !== 'test', //share cookies only with https connections
+		secure: false, // because my domain is not secure (http)
+		//secure: process.env.NODE_ENV !== 'test', //share cookies only with https connections
 	})
 )
 
